@@ -113,7 +113,7 @@ func (fd *FilesystemDeployAction) setupKernelCmdline(context *debos.DebosContext
 
 func (fd *FilesystemDeployAction) Run(context *debos.DebosContext) error {
 	fd.LogStart()
-	/* Copying files is actually silly hafd, one has to keep permissions, ACL's
+	/* Copying files is actually silly hard, one has to keep permissions, ACL's
 	 * extended attribute, misc, other. Leave it to cp...
 	 */
 	err := debos.Command{}.Run("Deploy to image", "cp", "-a", context.Rootdir+"/.", context.ImageMntDir)
