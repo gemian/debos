@@ -8,6 +8,7 @@ Yaml syntax:
    recommends: bool
    unauthenticated: bool
    update: bool
+   targetDevice: string
    packages:
      - package1
      - package2
@@ -23,6 +24,8 @@ Optional properties:
 - unauthenticated -- boolean indicating if unauthenticated packages can be installed
 
 - update -- boolean indicating if `apt update` will be run. Default 'true'.
+
+- targetDevice -- string indicating an evironment variable to be passed down to the apt command
 */
 package actions
 
@@ -35,6 +38,7 @@ type AptAction struct {
 	Recommends       bool
 	Unauthenticated  bool
 	Update           bool
+	TargetDevice     string
 	Packages         []string
 }
 
@@ -60,6 +64,9 @@ func (apt *AptAction) Run(context *debos.DebosContext) error {
 
 	c := debos.NewChrootCommandForContext(*context)
 	c.AddEnv("DEBIAN_FRONTEND=noninteractive")
+	if apt.TargetDevice != "" {
+		c.AddEnv("TARGET_DEVICE="+apt.TargetDevice)
+	}
 
 	if apt.Update {
 		err := c.Run("apt", "apt-get", "update")

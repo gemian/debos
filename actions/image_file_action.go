@@ -114,7 +114,7 @@ func (i *ImageFileAction) PreNoMachine(context *debos.DebosContext) error {
 
 	i.loopDev, err = losetup.Attach(i.ImageName, 0, false)
 	if err != nil {
-		return fmt.Errorf("Failed to setup loop device")
+		return fmt.Errorf("Failed to setup loop device - need sudo?")
 	}
 	context.Image = i.loopDev.Path()
 	i.usingLoop = true
