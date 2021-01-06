@@ -8,7 +8,7 @@ Yaml syntax:
    recommends: bool
    unauthenticated: bool
    update: bool
-   targetDevice: string
+   target-device: string
    packages:
      - package1
      - package2
@@ -25,7 +25,7 @@ Optional properties:
 
 - update -- boolean indicating if `apt update` will be run. Default 'true'.
 
-- targetDevice -- string indicating an evironment variable to be passed down to the apt command
+- target-device -- string indicating an evironment variable to be passed down to the apt command
 */
 package actions
 
@@ -38,7 +38,7 @@ type AptAction struct {
 	Recommends       bool
 	Unauthenticated  bool
 	Update           bool
-	TargetDevice     string
+	TargetDevice     string `yaml:"target-device"`
 	Packages         []string
 }
 
